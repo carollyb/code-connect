@@ -1,34 +1,19 @@
 import Image from 'next/image';
 import { Avatar } from '../Avatar';
-
-type CardPostProps = {
-  post: {
-    id: number;
-    cover: string;
-    title: string;
-    slug: string;
-    body: string;
-    markdown: string;
-    author: {
-      id: number;
-      name: string;
-      username: string;
-      avatar: string;
-    };
-  };
-};
+import styles from './cardpost.module.css';
+import { CardPostProps } from './types';
 
 export const CardPost = ({ post }: CardPostProps) => {
   return (
-    <article>
-      <header>
+    <article className={styles.card}>
+      <header className={styles.header}>
         <Image src={post.cover} alt='postimage' width={432} height={133} />
       </header>
-      <section>
+      <section className={styles.body}>
         <h2>{post.title}</h2>
         <p>{post.body}</p>
       </section>
-      <footer>
+      <footer className={styles.footer}>
         <Avatar name={post.author.name} imageSrc={post.author.avatar} />
       </footer>
     </article>
