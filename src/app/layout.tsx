@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   title: 'Code Connect',
   description: 'Uma rede social para devs',
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,8 +22,10 @@ export default function RootLayout({
     <html lang='pt-br' className={prompt.className}>
       <body>
         <div className='app-container'>
-          <Aside />
-          {children}
+          <div>
+            <Aside />
+          </div>
+          <div className='main-content'>{children}</div>
         </div>
       </body>
     </html>
