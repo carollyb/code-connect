@@ -1,8 +1,11 @@
 import { CardPost } from '@/components/CardPost';
 import { logger } from '@/logger';
+import Link from 'next/link';
 
-async function getAllPosts() {
-  const response = await fetch('http://localhost:3042/posts');
+async function getAllPosts(page: number) {
+  const response = await fetch(
+    `http://localhost:3042/posts?_page=${page}&_per_page=6`
+  );
   if (!response.ok) {
     logger.error('Error: API Call - get all posts');
     return [];
@@ -11,13 +14,20 @@ async function getAllPosts() {
   return response.json();
 }
 
-export default async function Home() {
-  const posts = await getAllPosts();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const currentPage = Number(searchParams?.page) || 1;
+  const { data: posts, prev, next } = await getAllPosts(currentPage);
   return (
     <main className='grid'>
       {posts.map((post: any, index: number) => (
         <CardPost key={index} post={post} />
       ))}
+      {prev && <Link href={`/?page=${prev}`}>Página anterior</Link>}
+      {next && <Link href={`/?page=${next}`}>Próxima página</Link>}
     </main>
   );
 }
