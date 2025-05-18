@@ -13,6 +13,7 @@
 .header figure {
   margin: 0;
   border-radius: 8px;
+  position: relative;
 }
 
 .header img {

@@ -13,4 +13,5 @@ export type CardPostProps = {
       avatar: string;
     };
   };
+  highlight?: boolean;
 };
